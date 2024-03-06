@@ -15,17 +15,30 @@ class MultiLingualGreetings extends Component {
 
   componentDidMount() {
     const {languageGreetingsList} = this.props
-    this.setState({actId: languageGreetingsList[0].id})
+    const {actId} = this.state
+    if (actId === '') {
+      this.setState({actId: languageGreetingsList[0].id})
+    }
   }
 
   onClickId = id => {
     this.setState({actId: id})
   }
 
+  renderfilteredList = () => {
+    const {languageGreetingsList} = this.props
+    let {actId} = this.state
+    console.log(actId)
+    if (actId === '') {
+      actId = languageGreetingsList[0].id
+    }
+    const filteredList = languageGreetingsList.filter(each => each.id === actId)
+    return filteredList
+  }
+
   render() {
     const {languageGreetingsList} = this.props
-    const {actId} = this.state
-    const filteredList = languageGreetingsList.filter(each => each.id === actId)
+    const filteredList = this.renderfilteredList()
     return (
       <AppContainer>
         <Header>Multilingual Greetings</Header>
@@ -39,7 +52,10 @@ class MultiLingualGreetings extends Component {
           ))}
         </ButtonsSection>
         <GreetingContainer>
-          <Image src={filteredList.imageUrl} alt={filteredList.imageAltText} />
+          <Image
+            src={filteredList[0].imageUrl}
+            alt={filteredList[0].imageAltText}
+          />
         </GreetingContainer>
       </AppContainer>
     )

@@ -27,6 +27,8 @@ const languageGreetingsList = [
 ]
 
 // Replace your code here
-const App = () => <MultiLingualGreetings />
+const App = () => (
+  <MultiLingualGreetings languageGreetingsList={languageGreetingsList} />
+)
 
 export default App
